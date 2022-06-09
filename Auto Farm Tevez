@@ -1,0 +1,45 @@
+
+local pad = workspace.DeliveryQuest['Delivery Point'].Pad
+local prompt = workspace.DeliveryQuest.PromptPart.ProximityPrompt
+local hitbox = game.Players.LocalPlayer.Character.HumanoidRootPart
+local db = false
+local TevezGui = Instance.new("ScreenGui")
+local Botao = Instance.new("TextButton")
+
+TevezGui.Name = "TevezGui"
+TevezGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+TevezGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+Botao.Name = "Botao"
+Botao.Parent = TevezGui
+Botao.BackgroundColor3 = Color3.fromRGB(46, 46, 46)
+Botao.BorderColor3 = Color3.fromRGB(255, 255, 255)
+Botao.BorderSizePixel = 2
+Botao.Position = UDim2.new(0.921615183, 0, 0.874617696, 0)
+Botao.Size = UDim2.new(0, 49, 0, 50)
+Botao.Font = Enum.Font.GothamBlack
+Botao.Text = "+"
+Botao.TextColor3 = Color3.fromRGB(255, 255, 255)
+Botao.TextScaled = true
+Botao.TextSize = 14.000
+Botao.TextWrapped = true
+Botao.MouseButton1Click:Connect(function()
+	if db == false then
+		db = true
+		Botao.Text = "-"
+		game.Players.LocalPlayer.Character.Humanoid.Torso.CFrame = CFrame.new(228, 15, -81)
+		game.Players.LocalPlayer.Character.Humanoid.Torso.Anchored = true
+	while db do
+		wait(.01)
+		fireproximityprompt(prompt)
+		wait(.01)
+		firetouchinterest(hitbox, pad, 0)
+		wait(.01)
+		firetouchinterest(hitbox, pad, 1)
+		end 
+	else
+		game.Players.LocalPlayer.Character.Humanoid.Torso.Anchored = true
+		db = false
+		Botao.Text = "+"
+		end
+end)
